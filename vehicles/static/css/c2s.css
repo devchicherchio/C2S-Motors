@@ -1,0 +1,146 @@
+:root{
+  --c2s-blue:#3A97F2;
+  --c2s-orange:#F58A0A;
+  --ink:#0C1A24;
+  --muted:#F4F7FB;
+  --card:#ffffff;
+  --soft-shadow:0 10px 30px rgba(16,38,73,.12);
+  --ring:0 0 0 4px rgba(58,151,242,.12);
+}
+html, body { height: 100%; }
+body{
+  background:#3A97F2; /* azul sólido */
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header */
+.c2s-header{
+  max-width: 1100px;
+  margin: 28px auto 16px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff, #f9fbff);
+  box-shadow: var(--soft-shadow);
+}
+.brandline{ display:flex; align-items:center; gap:14px; }
+.brandline .logo{ width:42px; height:42px; object-fit:contain; }
+.brandline .title{ display:flex; flex-direction:column; line-height:1.15; }
+.brandline .title .name{ font-weight:800; letter-spacing:.2px; font-size:1.25rem; }
+.brandline .title .tag{ font-size:.9rem; color:#557; opacity:.8; }
+
+/* Layout principal */
+.chat-wrapper{ max-width:1100px; margin:0 auto 24px; padding: 0 12px; }
+.grid{ display:grid; grid-template-columns:320px 1fr; gap:18px; }
+@media (max-width: 992px){ .grid{ grid-template-columns:1fr; } }
+
+/* Painel do Bot */
+.bot-panel{
+  background: var(--card);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:var(--soft-shadow);
+  position:sticky; top:16px;
+  height:fit-content;
+}
+.bot-hero{
+  position:relative;
+  border-radius:14px;
+  padding:18px;
+  overflow:hidden;
+  background:
+    radial-gradient(600px 280px at -10% -20%, rgba(58,151,242,.15), transparent 60%),
+    radial-gradient(500px 280px at 120% -10%, rgba(245,138,10,.12), transparent 60%),
+    #fff;
+  border:1px solid rgba(10,30,60,.06);
+}
+.bot-hero img{
+  width:100%; max-width:220px; display:block; margin:8px auto 0;
+  transition:transform .25s ease, opacity .25s ease;
+  filter:drop-shadow(0 14px 28px rgba(6,30,64,.08));
+  pointer-events:none; user-select:none;
+}
+.bot-hero .chip{
+  position:absolute; top:12px; right:12px;
+  background:linear-gradient(90deg, var(--c2s-blue), #6cbbff);
+  color:#fff; font-weight:700; font-size:.75rem; letter-spacing:.3px;
+  padding:6px 10px; border-radius:999px; box-shadow:var(--soft-shadow);
+}
+.bot-copy{ margin-top:12px; text-align:center; }
+.bot-copy h5{ font-weight:800; margin-bottom:2px; }
+.bot-copy p{ margin:0; color:#5a6b7f; font-size:.95rem; }
+
+/* Card do chat */
+.chat-card{
+  background:var(--card);
+  border-radius:16px;
+  box-shadow:var(--soft-shadow);
+  overflow:hidden;
+  display:flex; flex-direction:column;
+  height:clamp(520px, 70vh, 760px);
+}
+.chat-topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 16px; border-bottom:1px solid rgba(10,30,60,.06);
+  background:linear-gradient(90deg, rgba(58,151,242,.08), rgba(245,138,10,.07));
+}
+.status-dot{
+  display:inline-block; width:10px; height:10px; border-radius:50%;
+  background:var(--c2s-orange); margin-right:8px;
+  box-shadow:0 0 0 4px rgba(245,138,10,.15);
+  vertical-align:middle;
+}
+.chat-box{
+  flex:1 1 auto;
+  padding:16px;
+  overflow:auto; /* scroll interno */
+  background:linear-gradient(180deg, #fff, #fbfdff);
+}
+
+/* Mensagens */
+.msg{ display:flex; gap:12px; margin-bottom:14px; }
+.msg .bubble{
+  padding:12px 14px; border-radius:14px; max-width:74%;
+  border:1px solid rgba(10,30,60,.06);
+  word-wrap:break-word;
+}
+.msg.user .bubble{
+  background:#e9f3ff; border-color:rgba(58,151,242,.25);
+  margin-left:auto; box-shadow:0 6px 16px rgba(58,151,242,.12);
+}
+.msg.assistant .bubble{
+  background:#fff7ee; border-color:rgba(245,138,10,.25);
+  box-shadow:0 6px 16px rgba(245,138,10,.12);
+}
+.avatar{
+  width:36px; height:36px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; color:#fff;
+  background:linear-gradient(135deg, var(--c2s-blue), #6cbbff);
+  box-shadow:var(--soft-shadow); user-select:none;
+  flex: 0 0 36px;
+}
+.msg.user .avatar{ background:linear-gradient(135deg, var(--c2s-orange), #ffb259); }
+
+/* Digitando */
+.typing{ display:inline-flex; gap:6px; align-items:center; }
+.dot{ width:6px; height:6px; border-radius:50%; background:#666; opacity:.45; }
+.dot:nth-child(1){ animation:bounce 1s infinite .0s; }
+.dot:nth-child(2){ animation:bounce 1s infinite .15s; }
+.dot:nth-child(3){ animation:bounce 1s infinite .30s; }
+@keyframes bounce{
+  0%,80%,100%{ transform:translateY(0); opacity:.35; }
+  40%{ transform:translateY(-4px); opacity:.8; }
+}
+
+/* Input */
+.sticky-input{
+  padding:10px 12px; border-top:1px solid rgba(10,30,60,.06); background:#fff;
+}
+#msgInput:focus{ box-shadow:var(--ring); border-color:var(--c2s-blue); }
+
+/* Acessibilidade: reduzir animações */
+@media (prefers-reduced-motion: reduce){
+  .bot-hero img, .dot{ animation:none !important; transition:none !important; }
+}

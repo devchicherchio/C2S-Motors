@@ -1,0 +1,24 @@
+# Ambiente e chaves secretas
+.env
+*.env
+!example.env  # (opcional — mantém um modelo sem chaves reais)
+
+# Arquivos do Django e cache
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Build / dependências
+*.log
+*.pot
+*.pyc
+*.pyo
+*.db
+.DS_Store
+.vscode/
+.idea/
+*.bak
+
+# Pasta de mídia e estáticos (se for gerada)
+staticfiles/
+media/

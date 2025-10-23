@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}C2S Motors · Consultor de Veículos{% endblock %}
+
+{% block content %}
+<div class="grid">
+  <!-- Painel do Bot -->
+  <aside class="bot-panel">
+    <div class="bot-hero">
+      <span class="chip">C2S Bot</span>
+      <img id="botImage"
+           src="{% static 'branding/c2s_bot_idle.png' %}"
+           data-src-idle="{% static 'branding/c2s_bot_idle.png' %}"
+           data-src-typing="{% static 'branding/c2s_bot_typing.png' %}"
+           alt="C2S Bot">
+    </div>
+    <div class="bot-copy">
+      <h5>Seu consultor inteligente</h5>
+    </div>
+  </aside>
+
+  <!-- Chat -->
+  <section class="chat-card">
+    <div class="chat-topbar">
+      <div class="d-flex align-items-center gap-2">
+        <span class="status-dot"></span>
+        <strong>Chat C2S</strong>
+      </div>
+    </div>
+
+    <div class="chat-box" id="chatBox" aria-live="polite">
+      <div class="msg assistant">
+        <div class="avatar" aria-hidden="true">A</div>
+        <div class="bubble">
+          Olá! Posso te ajudar a encontrar um carro ideal. Pode me dizer o que procura?
+          <br><small class="text-muted">Ex.: “SUV automático até 120 mil, 2019+”.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="sticky-input">
+      <form id="chatForm" class="d-flex gap-2" autocomplete="off">
+        {% csrf_token %}
+        <label class="visually-hidden" for="msgInput">Mensagem</label>
+        <input id="msgInput" class="form-control" placeholder="Digite sua mensagem..." />
+        <button class="btn btn-primary px-4" type="submit">
+          Enviar
+        </button>
+      </form>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+  // Endpoint (usa "" = mesma rota da página como você já faz)
+  window.C2S_CHAT_ENDPOINT = "";
+</script>
+{% endblock %}

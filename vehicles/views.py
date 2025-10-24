@@ -388,6 +388,11 @@ def build_suggestions(filters: Dict, qs_total: int) -> List[str]:
         s.append("Quero 4 portas")
     return s[:6]
 
+print(f'mensagem do usuario {"user_msg"}')
+
+print(f'historico da conversa {"history"}')
+
+print(f'contexto do catalogo {"context_text"}')
 
 def build_llm_messages(user_msg: str, history: List[Dict], context_text: str) -> List[Dict]:
     """

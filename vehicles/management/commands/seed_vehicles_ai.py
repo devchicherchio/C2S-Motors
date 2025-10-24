@@ -19,8 +19,9 @@ except Exception:
 # ---------- Helpers ----------
 
 _VIN_CHARS = "ABCDEFGHJKLMNPRSTUVWXYZ0123456789"
+#Regex para pegar JSON dentro de bloco json ... se a IA retornar assim
 CODEBLOCK_RE = re.compile(r"```(?:json)?\s*(.*?)```", re.DOTALL | re.IGNORECASE)
-
+[]
 def fallback_vin():
     return "".join(random.choices(_VIN_CHARS, k=17))
 
@@ -77,7 +78,7 @@ SYSTEM_PROMPT = (
 )
 USER_PROMPT_BATCH = "Gere uma lista JSON de {n} veículos seguindo fielmente o esquema."
 
-DEFAULT_MODEL = "gpt-4o-mini"  # ajuste se necessário
+DEFAULT_MODEL = os.getenv("OPENAI_MODEL") 
 
 # ---------- Command ----------
 
@@ -116,15 +117,7 @@ class Command(BaseCommand):
             prompt = USER_PROMPT_BATCH.format(n=to_create)
 
             def call_api():
-                # Se seu modelo suportar response_format JSON nativo, descomente:
-                # return client.chat.completions.create(
-                #     model=model,
-                #     response_format={"type": "json_object"},  # ou json_schema se disponível
-                #     messages=[{"role": "system", "content": SYSTEM_PROMPT},
-                #               {"role": "user", "content": prompt}],
-                #     temperature=0.6,
-                #     max_tokens=2000,
-                # )
+
                 return client.chat.completions.create(
                     model=model,
                     messages=[{"role": "system", "content": SYSTEM_PROMPT},
@@ -134,8 +127,6 @@ class Command(BaseCommand):
                 )
 
             resp = retry_backoff(call_api, tries=4, base=1.0)
-
-            # >>>>>> CORREÇÃO AQUI: pegar conteúdo corretamente
             msg = resp.choices[0].message
             text = getattr(msg, "content", None)
             if text is None:

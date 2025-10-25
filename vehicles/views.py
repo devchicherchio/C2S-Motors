@@ -484,7 +484,7 @@ def vehicle_chat_view(request):
         total_matches = qs.count()
 
     # 2) Seleção de itens para cards do front
-    candidates = list(qs[:8])
+    candidates = list(qs[:12345678])
     items = [vehicle_to_dict(v) for v in candidates]
 
     # 3) Contexto (resumo + amostras) para o LLM, sempre derivado do BD
